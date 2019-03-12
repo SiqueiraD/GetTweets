@@ -1,5 +1,6 @@
 var express = require('express');
 var Twitter = require('twitter');
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 var app = express();
 
