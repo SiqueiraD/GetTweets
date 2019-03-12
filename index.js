@@ -13,7 +13,6 @@ var client = new Twitter({
 
 
 
-
 // Rotas 
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -33,7 +32,7 @@ app.get('/tt', function (req, res) {
       res.send('twitter!');
     }
     else
-    console.log(response);
+    console.log(error);
   });
 });
 
