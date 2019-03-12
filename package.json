@@ -1,0 +1,23 @@
+{
+  "name": "gettweets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiqueiraD/GetTweets.git"
+  },
+  "author": "Danilo Siqueira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiqueiraD/GetTweets/issues"
+  },
+  "homepage": "https://github.com/SiqueiraD/GetTweets#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "twitter": "^1.7.1"
+  }
+}
