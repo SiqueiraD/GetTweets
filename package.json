@@ -18,6 +18,7 @@
   "homepage": "https://github.com/SiqueiraD/GetTweets#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "jquery": "^3.3.1",
     "twitter": "^1.7.1"
   }
 }
