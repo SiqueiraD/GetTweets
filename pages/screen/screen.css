@@ -1,0 +1,11 @@
+div#first-tweet{
+    border: 1px solid #eee;
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+
+div#first-tweet.hide{
+    opacity: 0;
+    transition: opacity 1s linear;
+    pointer-events: none;
+}

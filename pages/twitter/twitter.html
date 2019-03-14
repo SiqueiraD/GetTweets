@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -7,40 +7,109 @@
   <title>Put Hashtag</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-  <script type="module" src="main.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
   <script src="/scripts/jquery.js"></script>
+  <script src="/scripts/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="module" src="main.js"></script>
+
+  <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+    
+      return t;
+    }(document, "script", "twitter-wjs"));</script>
+
 </head>
 
 <body>
-  <!-- <form id="formP" name="myform" action="javascript:void(0)">
-        <input type="text" name="hashtag" id="inputHashtag" value="#">
-        <input type="submit" value="Vai!">
-    </form> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-0 col-md-2"></div>
+      <div class="col-sm-12 col-md-8">
+        <div class="row">
+          <div class="card col-sm-5">
+            <div class="card-body">
+              <form class="col-sm" id="formP" name="myform" action="javascript:void(0)" method="GET">
+                <fieldset>
+                  <legend>Caixa de busca:</legend>
+                  Hashtag:<br>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">#</span>
+                    </div>
+                    <input type="text" class="form-control" name="hashtag" id="inputHashtag" aria-describedby="basic-addon1"
+                      value="">
+                  </div>
+                  <br>
+                  <input type="submit" value="Vai!">
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div class="card col-sm-7">
+            <div class="card-body">
 
-  <form id="formP" name="myform" action="javascript:void(0)" method="GET">
-    <fieldset>
-      <legend>Caixa de busca:</legend>
-      Hashtag para pesquisar:<br>
-      <input type="text" name="hashtag" id="inputHashtag" value="">
-      <br>
-      <input type="submit" value="Vai!">
-    </fieldset>
-  </form>
-  <br>
-  <br>
+            </div>
+          </div>
+        </div>
 
-  <div class="result">
-    <table style="width:100%" id="myTable">
-      <thead>
-        <tr>
-          <th>Text</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody>
 
-      </tbody>
-    </table>
+        <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <div class="result table">
+                <table style="width:100%" id="myTable">
+                  <thead>
+                    <tr>
+                      <th scope="col">Text</th>
+                      <th scope="col">Author</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-0 col-md-8"></div>
+    </div>
+    <div class="row">
+    </div>
+  </div>
+
+  <div id="myModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Tweet</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id="first-tweet">
+      
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" id="submitTweet">Enviar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 

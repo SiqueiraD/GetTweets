@@ -12,7 +12,9 @@ window.onload = function () {
           exibeResultado(response.statuses.map(function (e) {
             return {
               text: e.full_text,
-              author: e.user.screen_name
+              author: e.user.screen_name,
+              id: e.id,
+              id_str: e.id_str
             };
           }));
         console.log(response);
@@ -32,39 +34,43 @@ function exibeResultado(res) {
   res.forEach(element => {
     var row = table.tBodies[0].insertRow(table.tBodies[0].rows.length);
     row.onclick = function (e) {
-      console.log('clicou:');
-      console.log(element);
+      console.log('clicou:' + element.id);
+      getTweet(element.id_str);
     };
-    // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
 
-    // Add some text to the new cells:
     cell1.innerHTML = element.text;
     cell2.innerHTML = element.author;
-
   });
-
   console.log(res);
 };
 
-function setTwitter() {
+function getTweet(id) {
+  document.getElementById('first-tweet').innerHTML = "";
+  window.twttr.widgets.createTweet(id, document.getElementById('first-tweet'), {
+      align: 'left'
+    })
+    .then(function (el) {
+      console.log("Tweet displayed.");
+      $('#myModal').modal('toggle');
+      $('#submitTweet').on('click', function (el) {
+        setTweet(id);
+      });
+    });
+}
+
+function setTweet(id) {
   $.ajax({
-    url: "/sett",
+    url: "/set/tweet",
     type: "get", //send it through get method
     data: {
-      hashtag: $('#inputHashtag')[0].value
+      ideet: id
     },
     success: function (response) {
-      if (response && response.statuses)
-        exibeResultado(response.statuses.map(function (e) {
-          return {
-            text: e.full_text,
-            author: e.user.screen_name
-          };
-        }))
-      console.log(response);
-      //Do Something  
+      if (response)
+        console.log(response);
     },
     error: function (xhr) {
       //Do Something to handle error

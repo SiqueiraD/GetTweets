@@ -1,5 +1,4 @@
 var express = require('express');
-var jquery = require.resolve('jquery');
 var Twitter = require('twitter');
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -14,10 +13,20 @@ client = new Twitter({
 });
 
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // SCRIPTS
 app.get('/scripts/jquery.js', function (req, res) {
+  var jquery = require.resolve('jquery');
   res.sendFile(jquery);
+});
+app.get('/scripts/bootstrap.js', function (req, res) {
+  var bootstrap = require.resolve('bootstrap');
+  res.sendFile(bootstrap);
+});
+app.get('/scripts/popper.js', function (req, res) {
+  var popper = require.resolve('popper');
+  res.sendFile(popper);
 });
 
 // Rotas 
@@ -45,11 +54,10 @@ app.get('/twitter', function (req, res) {
       'x-sent': true
     }
   };
-
-
   res.sendFile("twitter.html", options);
-
 });
+
+app.use('/tshoweett', express.static(__dirname + '/pages/screen/'));
 app.get('/tshoweett', function (req, res) {
   var options = {
     root: __dirname + '/pages/screen/',
@@ -60,42 +68,27 @@ app.get('/tshoweett', function (req, res) {
     }
   };
   res.sendFile("screen-show.html", options);
-
 });
 
-app.get('/sett', function (req, res) {
-  var stream = client.stream('statuses/filter', {
-    track: 'javascript'
-  });
-  stream.on('data', function (event) {
-    console.log(event && event.text);
-  });
-
-  stream.on('error', function (error) {
-    throw error;
-  });
-
-});
-
-app.get('/sett2', function (req, res) {
+var idTweet;
+app.get('/set/tweet', function (req, res) {
   var params = req.url.split('=')[1];
-  params = params[0] == '#' ? params.replace('#', '') : params;
-  client.get('statuses/show/' + params, {
-    id: params
-  }, function (error, tweets, response) {
-    if (!error) {
-      if (response)
-        res.json(JSON.parse(response.toJSON().body));
-    } else {
-      console.log(error);
-    }
-  });
+  if (params) {
+    idTweet = params;
+    res.send(params);
+  }
+});
 
+app.get('/get/tweet', function (req, res) {
+  if (idTweet)
+    res.send(idTweet);
+  else
+    res.send('Não tem numero')
 });
 
 app.get('/tt', function (req, res) {
   var params = req.url.split('=')[1];
-  params = params[0] == '#' ? params.replace('#', '') : params;
+  params = params[0] == '#' ? params : '#' + params;
   client.get('search/tweets', {
     q: params,
     tweet_mode: 'extended',
