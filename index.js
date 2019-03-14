@@ -80,16 +80,15 @@ app.get('/sett', function (req, res) {
 app.get('/sett2', function (req, res) {
   var params = req.url.split('=')[1];
   params = params[0] == '#' ? params.replace('#', '') : params;
-  client.stream('statuses/filter', {
-    track: params
-  }, function (stream) {
-    stream.on('data', function (event, t, a) {
-      console.log(event && event.text);
-    });
-
-    stream.on('error', function (error) {
-      throw error;
-    });
+  client.get('statuses/show/' + params, {
+    id: params
+  }, function (error, tweets, response) {
+    if (!error) {
+      if (response)
+        res.json(JSON.parse(response.toJSON().body));
+    } else {
+      console.log(error);
+    }
   });
 
 });
@@ -99,9 +98,9 @@ app.get('/tt', function (req, res) {
   params = params[0] == '#' ? params.replace('#', '') : params;
   client.get('search/tweets', {
     q: params,
-    tweet_mode: 'extended_tweet',
+    tweet_mode: 'extended',
     count: 100,
-    include_entities: true
+    include_entities: 1
   }, function (error, tweets, response) {
     if (!error) {
       if (response)
