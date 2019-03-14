@@ -41,7 +41,7 @@ function getTweet(id) {
     _id = id;
     document.getElementById('first-tweet').innerHTML = "";
     window.twttr.widgets.createTweet(id, document.getElementById('first-tweet'), {
-        align: 'left'
+        align: 'center'
       })
       .then(function (el) {
         mostrar();

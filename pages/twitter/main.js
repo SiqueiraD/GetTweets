@@ -1,31 +1,36 @@
 window.onload = function () {
   console.log("onload: " + Date.now());
   $('#formP').on('submit', function (e, i, a) {
-    $.ajax({
-      url: "/tt",
-      type: "get", //send it through get method
-      data: {
-        hashtag: $('#inputHashtag')[0].value
-      },
-      success: function (response) {
-        if (response && response.statuses)
-          exibeResultado(response.statuses.map(function (e) {
-            return {
-              text: e.full_text,
-              author: e.user.screen_name,
-              id: e.id,
-              id_str: e.id_str
-            };
-          }));
-        console.log(response);
-        //Do Something  
-      },
-      error: function (xhr) {
-        //Do Something to handle error
-      }
-    });
+    move();
+    searchTweets();
   });
 };
+
+function searchTweets() {
+  $.ajax({
+    url: "/tt",
+    type: "get", //send it through get method
+    data: {
+      hashtag: $('#inputHashtag')[0].value
+    },
+    success: function (response) {
+      if (response && response.statuses)
+        exibeResultado(response.statuses.map(function (e) {
+          return {
+            text: e.full_text,
+            author: e.user.screen_name,
+            id: e.id,
+            id_str: e.id_str
+          };
+        }));
+      console.log(response);
+      //Do Something  
+    },
+    error: function (xhr) {
+      //Do Something to handle error
+    }
+  });
+}
 
 function exibeResultado(res) {
   var table = document.getElementById("myTable");
@@ -57,6 +62,7 @@ function getTweet(id) {
       $('#myModal').modal('toggle');
       $('#submitTweet').on('click', function (el) {
         setTweet(id);
+        $('#myModal').modal('hide');
       });
     });
 }
@@ -76,4 +82,34 @@ function setTweet(id) {
       //Do Something to handle error
     }
   });
+}
+
+var interval;
+function move() {
+  var elem = document.getElementById("myBar");
+  var width = 0;
+  var desc = false;
+  if(!interval)
+  interval = setInterval(frame, 100);
+  else
+  {
+    clearInterval(interval);
+    interval = setInterval(frame, 100);
+  }
+
+  function frame() {
+    if (width > 101 || width < 0)
+      callSearch_toogleProgress();
+    if (desc) {
+      width--;
+    } else {
+      width++;
+    }
+    elem.style.width = width + '%';
+  };
+
+  function callSearch_toogleProgress() {
+    desc = !desc;
+    searchTweets();
+  };
 }
