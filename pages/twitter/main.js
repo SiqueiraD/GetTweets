@@ -62,6 +62,11 @@ function getTweet(id) {
       $('#myModal').modal('toggle');
       $('#submitTweet').on('click', function (el) {
         setTweet(id);
+        Swal.fire({
+          title: 'Tweet enviado',
+          type:'success',
+          text: 'Em instantes o tweet será exibido na tela: \n' + window.location.origin + "/tshoweett",
+        });
         $('#myModal').modal('hide');
       });
     });
