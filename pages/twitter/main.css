@@ -1,0 +1,12 @@
+table, tr, td{
+  border: black 1px solid;
+}
+
+tr, td{
+  padding: 1em;
+}
+
+tbody > tr:hover {
+  cursor: pointer;
+  background: gray;
+}

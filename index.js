@@ -16,15 +16,17 @@ client = new Twitter({
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
 
 // SCRIPTS
-app.get('/scripts/jquery.js', function(req, res) {
+app.get('/scripts/jquery.js', function (req, res) {
   res.sendFile(jquery);
 });
 
 // Rotas 
 app.get('/', function (req, res) {
   res.send('Hello World!');
-  var params = {screen_name: 'nodejs'};
-  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  var params = {
+    screen_name: 'nodejs'
+  };
+  client.get('statuses/user_timeline', params, function (error, tweets, response) {
     if (!error) {
       console.log(tweets);
     }
@@ -43,27 +45,68 @@ app.get('/twitter', function (req, res) {
       'x-sent': true
     }
   };
-  
-  
+
+
   res.sendFile("twitter.html", options);
-  
+
+});
+app.get('/tshoweett', function (req, res) {
+  var options = {
+    root: __dirname + '/pages/screen/',
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  };
+  res.sendFile("screen-show.html", options);
+
 });
 
-app.param('hashtag', function (req, res, next, id) {
-  console.log('CALLED ONLY ONCE');
-  next();
+app.get('/sett', function (req, res) {
+  var stream = client.stream('statuses/filter', {
+    track: 'javascript'
+  });
+  stream.on('data', function (event) {
+    console.log(event && event.text);
+  });
+
+  stream.on('error', function (error) {
+    throw error;
+  });
+
 });
+
+app.get('/sett2', function (req, res) {
+  var params = req.url.split('=')[1];
+  params = params[0] == '#' ? params.replace('#', '') : params;
+  client.stream('statuses/filter', {
+    track: params
+  }, function (stream) {
+    stream.on('data', function (event, t, a) {
+      console.log(event && event.text);
+    });
+
+    stream.on('error', function (error) {
+      throw error;
+    });
+  });
+
+});
+
 app.get('/tt', function (req, res) {
   var params = req.url.split('=')[1];
-  params = params[0] == '#'? params.replace('#','') : params;
-  client.get('search/tweets', {q: params}, function(error, tweets, response) {
+  params = params[0] == '#' ? params.replace('#', '') : params;
+  client.get('search/tweets', {
+    q: params,
+    tweet_mode: 'extended_tweet',
+    count: 100,
+    include_entities: true
+  }, function (error, tweets, response) {
     if (!error) {
-      if(tweets.statuses){
-        console.log(tweets.statuses);
-      }
-      res.json(tweets);
-    }
-    else{
+      if (response)
+        res.json(JSON.parse(response.toJSON().body));
+    } else {
       console.log(error);
     }
   });
@@ -72,4 +115,3 @@ app.get('/tt', function (req, res) {
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
-
