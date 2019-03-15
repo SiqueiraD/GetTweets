@@ -5,7 +5,11 @@ window.onload = function () {
     searchTweets();
   });
   table_show_hide();
-  if (!window.twttr)
+  setTwttrFunc();
+};
+
+function setTwttrFunc(){
+  try {
     window.twttr = (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -22,7 +26,29 @@ window.onload = function () {
 
       return t;
     }(document, "script", "twitter-wjs"));
-};
+  } catch (error) {
+    try {
+      window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+  
+        t._e = [];
+        t.ready = function (f) {
+          t._e.push(f);
+        };
+  
+        return t;
+      }(document, "script", "twitter-wjs"));
+    } catch (error) {
+      throw "Erro no widgets do twitter";
+    }
+  }
+}
 
 function table_show_hide() {
   var t = document.getElementsByTagName('tbody')[0];
