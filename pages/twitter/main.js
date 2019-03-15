@@ -27,6 +27,7 @@ function setTwttrFunc(){
       return t;
     }(document, "script", "twitter-wjs"));
   } catch (error) {
+    console.log('erro no widget do twitter');
     try {
       window.twttr = (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
