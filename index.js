@@ -33,15 +33,15 @@ app.get('/scripts/popper.js', function (req, res) {
 
 // Rotas 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
-  var params = {
-    screen_name: 'nodejs'
-  };
-  client.get('statuses/user_timeline', params, function (error, tweets, response) {
-    if (!error) {
-      console.log(tweets);
+  var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
     }
-  });
+  };
+  res.sendFile("index.html", options);
 });
 
 app.use(express.static(__dirname + '/pages'));
