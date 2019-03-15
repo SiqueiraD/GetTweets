@@ -5,6 +5,8 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 app = express();
 
+app.set('port', (process.env.PORT || 3000));
+
 client = new Twitter({
   consumer_key: 'di5OGJMlDXdlIeZrtwS89cx2O',
   consumer_secret: 'ux6OLwwu84cyggLXhrFvbklPxj4kR4MvEZmsbAzNbQPiiT2V7f',
