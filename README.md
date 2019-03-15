@@ -21,7 +21,7 @@ Testar online: [Publicação no Heroku Cloud Application Plataform](https://get-
 
 ## Requerimentos
 
-  - Node.js (NPM)
+  - Node.js v6.x < (NPM)
 
 ## Como Usar
 
