@@ -10,10 +10,10 @@ window.onload = function () {
 
 function setTwttrFunc(){
   try {
-    callTwitter_twttr();
+    callTwitter_twttr(true);
   } catch (error) {
     console.log('erro no widget do twitter');
-    callTwitter_twttr(true);
+    callTwitter_twttr();
   }
 }
 
