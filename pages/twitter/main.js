@@ -10,16 +10,15 @@ window.onload = function () {
 
 function setTwttrFunc() {
   try {
-    callTwitter_twttr();
+    callTwitter_twttr(true);
   } catch (error) {
     console.log('erro no widget do twitter');
-    callTwitter_twttr(true);
+    callTwitter_twttr();
   }
 }
 
 function callTwitter_twttr(https) {
   window.twttr = (function (d, s, id) {
-    try {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
       if (d.getElementById(id)) return t;
@@ -34,9 +33,6 @@ function callTwitter_twttr(https) {
       };
 
       return t;
-    } catch (error) {
-      callTwitter_twttr(!https);
-    }
   }(document, "script", "twitter-wjs"));
 }
 
