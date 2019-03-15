@@ -1,11 +1,3 @@
-div#first-tweet twitter-widget{
+div#first-tweet twitter-widget {
     border: 1px solid #eee;
-    opacity: 1;
-    transition: opacity 1.5s linear;
-}
-
-div#first-tweet.hide twitter-widget{
-    opacity: 0;
-    transition: opacity 1.5s linear;
-    pointer-events: none;
 }

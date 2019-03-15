@@ -19,7 +19,7 @@
       if (d.getElementById(id)) return t;
       js = d.createElement(s);
       js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
+      js.src = "http://platform.twitter.com/widgets.js";
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
@@ -33,6 +33,7 @@
 </head>
 
 <body>
+  <script src="/scripts/move-js/move.min.js"></script>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
