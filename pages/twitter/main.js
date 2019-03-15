@@ -8,23 +8,23 @@ window.onload = function () {
   setTwttrFunc();
 };
 
-function setTwttrFunc(){
+function setTwttrFunc() {
   try {
-    callTwitter_twttr(true);
+    callTwitter_twttr();
   } catch (error) {
     console.log('erro no widget do twitter');
-    callTwitter_twttr();
+    callTwitter_twttr(true);
   }
 }
 
-function callTwitter_twttr(https){
+function callTwitter_twttr(https) {
   window.twttr = (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
       t = window.twttr || {};
     if (d.getElementById(id)) return t;
     js = d.createElement(s);
     js.id = id;
-    js.src = (https? "https" : "http") +"://platform.twitter.com/widgets.js";
+    js.src = (https ? "https" : "http") + "://platform.twitter.com/widgets.js";
     fjs.parentNode.insertBefore(js, fjs);
 
     t._e = [];
@@ -32,7 +32,11 @@ function callTwitter_twttr(https){
       t._e.push(f);
     };
 
-    return t;
+    try {
+      return t;
+    } catch (error) {
+      callTwitter_twttr(!https);
+    }
   }(document, "script", "twitter-wjs"));
 }
 
@@ -116,7 +120,7 @@ function getTweet(id) {
     });
 }
 
-function urlShow(){
+function urlShow() {
   var a = document.createElement('a');
   a.href = window.location.origin + "/tshoweett";
   a.text = "Clique aqui.";
