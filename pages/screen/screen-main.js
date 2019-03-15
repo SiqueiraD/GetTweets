@@ -5,45 +5,30 @@ window.onload = function () {
 
 function setTwttrFunc(){
   try {
-    window.twttr = (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "http://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function (f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));
+    callTwitter_twttr();
   } catch (error) {
     console.log('erro no widget do twitter');
-    try {
-      window.twttr = (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-          t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-  
-        t._e = [];
-        t.ready = function (f) {
-          t._e.push(f);
-        };
-  
-        return t;
-      }(document, "script", "twitter-wjs"));
-    } catch (error) {
-      throw "Erro no widgets do twitter";
-    }
+    callTwitter_twttr(true);
   }
+}
+
+function callTwitter_twttr(https){
+  window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = (https? "https" : "http") +"://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function (f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
 }
 
 var timer;
