@@ -5,6 +5,8 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 app = express();
 
+app.set('port', (process.env.PORT || 3000));
+
 client = new Twitter({
   consumer_key: 'di5OGJMlDXdlIeZrtwS89cx2O',
   consumer_secret: 'ux6OLwwu84cyggLXhrFvbklPxj4kR4MvEZmsbAzNbQPiiT2V7f',
@@ -31,15 +33,15 @@ app.get('/scripts/popper.js', function (req, res) {
 
 // Rotas 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
-  var params = {
-    screen_name: 'nodejs'
-  };
-  client.get('statuses/user_timeline', params, function (error, tweets, response) {
-    if (!error) {
-      console.log(tweets);
+  var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
     }
-  });
+  };
+  res.sendFile("index.html", options);
 });
 
 app.use(express.static(__dirname + '/pages'));
@@ -104,6 +106,6 @@ app.get('/tt', function (req, res) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(app.get('port'), function () {
+  console.log('Example app listening on port ', app.get('port'));
 });

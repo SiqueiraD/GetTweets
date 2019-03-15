@@ -1,7 +1,35 @@
 window.onload = function () {
+  setTwttrFunc();
   refreshTweet();
-
 };
+
+function setTwttrFunc(){
+  try {
+    callTwitter_twttr(true);
+  } catch (error) {
+    console.log('erro no widget do twitter');
+    callTwitter_twttr();
+  }
+}
+
+function callTwitter_twttr(https){
+  window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = (https? "https" : "http") +"://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function (f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+}
 
 var timer;
 var _id;
@@ -37,24 +65,40 @@ function getIdTweet() {
 
 function getTweet(id) {
   if (_id != id) {
-    ocultar();
+    transicaoTimer(transicaoEsconderMostrar);
     _id = id;
     document.getElementById('first-tweet').innerHTML = "";
-    window.twttr.widgets.createTweet(id, document.getElementById('first-tweet'), {
-        align: 'center'
-      })
-      .then(function (el) {
-        mostrar();
-      });
+    setTimeout(showTweet, 500);
   }
 };
 
-function ocultar() {
-  var element = document.getElementById("first-tweet");
-  element.classList.add("hide");
+function showTweet() {
+  window.twttr.widgets.createTweet(_id, document.getElementById('first-tweet'), {
+      align: 'center'
+    })
+    .then(function (el) {
+      transicaoTimer(transicaoMostrar);
+    })
 }
 
-function mostrar() {
-  var element = document.getElementById("first-tweet");
-  element.classList.remove("hide");
+function transicaoTimer(func) {
+  setTimeout(func, 0);
 }
+
+function transicaoEsconderMostrar() {
+  var num = Math.floor(Math.random() * 3) + 1;
+  num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+  move('#first-tweet')
+    .set('opacity', '0.1')
+    .scale(num)
+    .duration('2s')
+    .end(transicaoMostrar);
+}
+
+function transicaoMostrar() {
+  move('#first-tweet')
+    .set('opacity', '1')
+    .duration('1.5s')
+    .scale(1)
+    .end();
+};

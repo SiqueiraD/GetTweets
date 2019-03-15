@@ -11,15 +11,14 @@
   <script src="/scripts/jquery.js"></script>
   <script src="/scripts/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="module" src="screen-main.js"></script>
-
-  <script>
+  <!-- <script>
     window.twttr = (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
       if (d.getElementById(id)) return t;
       js = d.createElement(s);
       js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
+      js.src = "http://platform.twitter.com/widgets.js";
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
@@ -29,19 +28,18 @@
 
       return t;
     }(document, "script", "twitter-wjs"));
-  </script>
+  </script> -->
 </head>
 
 <body>
-  <div class="container">
+  <script src="/scripts/move-js/move.min.js"></script>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8">
+      <div class="col-sm-12">
         <div id="first-tweet">
 
         </div>
       </div>
-      <div class="col-sm-2"></div>
     </div>
   </div>
 </body>
