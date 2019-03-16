@@ -1,6 +1,7 @@
 # GetTweets - Busca, seleciona e exibe
 
 ![Exemplo de uso](https://raw.githubusercontent.com/SiqueiraD/GetTweets/master/screenshots/replace-url.gif)  
+NÃO FUNCIONANDO NO MOZILLA FIREFOX
 
 ![Exemplo de uso](https://raw.githubusercontent.com/SiqueiraD/GetTweets/master/screenshots/complete-example.gif)
 
