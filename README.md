@@ -1,4 +1,4 @@
-Alteraçao 20/05/2020
+Alteraçao 20/05/2020#2,0
 
 # GetTweets - Busca, seleciona e exibe
 
