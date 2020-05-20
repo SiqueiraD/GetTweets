@@ -1,3 +1,5 @@
+Alteraçao 20/05/2020
+
 # GetTweets - Busca, seleciona e exibe
 
 ![Exemplo de uso](https://raw.githubusercontent.com/SiqueiraD/GetTweets/master/screenshots/replace-url.gif)  
