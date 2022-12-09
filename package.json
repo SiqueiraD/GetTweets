@@ -19,7 +19,7 @@
   "homepage": "https://github.com/SiqueiraD/GetTweets#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "jquery": "^3.3.1",
     "move-js": "^0.5.0",
     "popper": "^1.0.1",
